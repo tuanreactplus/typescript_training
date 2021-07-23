@@ -1,9 +1,10 @@
 interface LabelProps  {
     text?: string;
+    style?: any
 }
 export const Label = (props: LabelProps) => {
-    const {text} = props;
+    const {text, style={}} = props;
     return(
-        <label>{text}</label>
+        <label style={style}>{text}</label>
     )
 }

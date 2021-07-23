@@ -1,12 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Button} from "./components/atom/Button";
 import {Select} from "./components/atom/Select";
 import {Input} from "./components/atom/Input";
 import {Label} from "./components/atom/Label";
-import {Form} from "./components/molecules/Form";
 
 function App() {
+  const option_select= [
+    {
+      label: 'option 1',
+      value: 'opt1'
+    },
+    {
+      label: 'option 2',
+      value: 'opt2'
+    }
+  ]
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmit, setIsSubmit] = useState(false);
@@ -26,23 +35,23 @@ function App() {
     setPassword(value);
 
   }
+  useEffect(() => {
+    setIsSubmit(false);
+  },[name, password])
   return (
       <div className="App">
-        <Select>
-          <option value="option 1">option 1</option>
-          <option value="option 2">option 2</option>
-        </Select>
-        <Form onSubmit={(e) => handleSubmit(e)}>
+        <Select options={option_select} />
+        <form onSubmit={(e) => handleSubmit(e)}>
           <Label text={'username'} />
-          <Input id={'name'} type={'text'} onChange={handleChangeName} /><br/>
+          <Input  type={'text'} onChange={handleChangeName} /><br/>
           <Label text={'password'} />
-          <Input id={'password'} type={'password'} onChange={handleChangePassword} />
+          <Input  type={'password'} onChange={handleChangePassword} />
           <div>
-            <Button text={'Login'} />
+            <Button>Login</Button>
           </div>
-        </Form>
-        {isSubmit && isSuccess && <Label text={'success'} /> }
-        {isSubmit && !isSuccess && <Label text={'please enter username: tuan and password: 1'}/> }
+        </form>
+        {isSubmit && isSuccess && <Label text ={'success'} />}
+        {isSubmit && !isSuccess && <Label text={'!User name or password was wrong'}/> }
 
       </div>
   );

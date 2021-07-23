@@ -1,13 +1,16 @@
+import {ReactNode} from "react";
+
 interface ButtonProps{
-    text?: string;
-    onClick?: () => void;
+    onClick?: () => void,
+    children?: ReactNode,
+    style?: any
 }
 export const Button = (props: ButtonProps) => {
-    const {text= 'Sign in', onClick = () => {}} = props;
+    const {children, onClick = () => {}, style = {}} = props;
 
     return(
-        <button onClick={onClick}>
-            {text}
+        <button style={style} onClick={onClick}>
+            {children}
         </button>
     )
 }

@@ -1,20 +1,24 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 interface InputProps {
     type?: string,
-    maxLength?: number,
-    text? :string,
-    id?: string
-    onChange?: (value: string) => void
+    onChange?: (value: string) => void,
+    value?: any,
+    style?:any
 }
 export const Input = (props:InputProps) => {
-    const {type= 'text', maxLength=10, text ='', id ='', onChange = () => {}} = props;
+    const {type= 'text', onChange = () => {}, style={}} = props;
+
     const [value, setValue] = useState('');
     const handleChange = (value: string) => {
         setValue(value);
         onChange(value);
     }
+    useEffect(() => {
+        setValue(value);
+    }, [value])
+
     return(
-        <input id={id} value={value || text } onChange={(e) => handleChange(e.target.value)} type={type} maxLength={maxLength}/>
+        <input style={style} required={true} onChange={(e)=> handleChange(e.target.value)} value={value } type={type}/>
     )
 }
